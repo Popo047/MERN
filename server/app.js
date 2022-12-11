@@ -4,12 +4,14 @@ const app = express();
 const cors = require("cors");
 
 const postsRoute = require("./router/posts");
+const commentsRoute = require("./router/comments");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
 app.use("/posts", postsRoute);
+app.use("/comments", commentsRoute);
 
 sequelize
 	// .sync({ force: true })

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function PostsPage() {
 	const router = useRouter();
@@ -27,7 +28,9 @@ function PostsPage() {
 			<button onClick={onCreatePost}>Create Post</button>
 			<br />
 			{posts?.map((item) => (
-				<li>{item.title}</li>
+				<li>
+					<Link href={`/posts/${item.id}`}>{item.title}</Link>
+				</li>
 			))}
 		</div>
 	);

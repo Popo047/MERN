@@ -9,14 +9,15 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
 	const { id } = req.params;
-	const { dataValues } = await Posts.findByPk(id);
-
-	if (dataValues) res.status(200).json(dataValues);
+	try {
+		const { dataValues } = await Posts.findByPk(id);
+		if (dataValues) res.status(200).json(dataValues);
+	} catch (error) {
+		res.status(404).send({ message: "Not Found" });
+	}
 });
 
 router.post("/", async (req, res) => {
-	console.log(req.body);
-
 	const { title, description, username } = req.body;
 
 	if (title && description && username) {

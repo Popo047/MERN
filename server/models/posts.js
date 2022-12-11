@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
+const Comments = require("./comments");
 
 const Posts = sequelize.define("posts", {
 	id: {
@@ -20,5 +21,7 @@ const Posts = sequelize.define("posts", {
 		allowNull: false,
 	},
 });
+
+Posts.hasMany(Comments);
 
 module.exports = Posts;
