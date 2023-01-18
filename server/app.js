@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const postsRoute = require("./router/posts");
 const commentsRoute = require("./router/comments");
+const usersRoute = require("./router/users");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(cors());
 
 app.use("/posts", postsRoute);
 app.use("/comments", commentsRoute);
+app.use("/auth", usersRoute);
 
 sequelize
 	// .sync({ force: true })

@@ -10,7 +10,11 @@ function PostsPage() {
 	useEffect(() => {
 		const getPosts = async (params) => {
 			try {
-				const { data } = await axios.get("http://localhost:3000/posts");
+				const { data } = await axios.get("http://localhost:3000/posts", {
+					headers: {
+						accessToken: sessionStorage.getItem("accessToken"),
+					},
+				});
 				setposts(data?.posts);
 			} catch (error) {
 				console.log(error);

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Grid } from "@mui/material";
+import useAxiosInstance from "../../utils/useAxiosInstance";
 
 function Post() {
 	const router = useRouter();
+	const axiosInstance = useAxiosInstance();
 	const {
 		query: { id },
 	} = router;
@@ -14,7 +16,9 @@ function Post() {
 
 	async function getComments() {
 		try {
-			const { data } = await axios.get(`http://localhost:3000/comments/${id}`);
+			const { data } = await axiosInstance.get(
+				`http://localhost:3000/comments/${id}`
+			);
 			setComments(data);
 			console.log(data);
 		} catch (error) {
@@ -25,7 +29,9 @@ function Post() {
 	useEffect(() => {
 		async function getPost() {
 			try {
-				const { data } = await axios.get(`http://localhost:3000/posts/${id}`);
+				const { data } = await axiosInstance.get(
+					`http://localhost:3000/posts/${id}`
+				);
 				setPost(data);
 			} catch (error) {
 				console.log(error);
@@ -38,7 +44,7 @@ function Post() {
 
 	async function submitHandler() {
 		try {
-			const response = await axios.post(
+			const response = await axiosInstance.post(
 				`http://localhost:3000/comments/${id}`,
 				{ commentBody }
 			);

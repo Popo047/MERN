@@ -1,10 +1,10 @@
 import React from "react";
 import { useFormik } from "formik";
 import axios from "axios";
+import useAxiosInstance from "../../utils/useAxiosInstance";
 
 function NewPostPage() {
-	// Pass the useFormik() hook initial form values and a submit function that will
-	// be called when the form is submitted
+	const axiosInstance = useAxiosInstance();
 
 	const formik = useFormik({
 		initialValues: {
@@ -16,10 +16,11 @@ function NewPostPage() {
 		onSubmit: async (values) => {
 			console.log(values);
 			try {
-				const { data } = await axios.post(
-					"http://localhost:3000/posts",
-					values
-				);
+				const resp = axiosInstance.post("http://localhost:3000/posts", values, {
+					headers: {
+						accessToken: sessionStorage.getItem("accessToken"),
+					},
+				});
 			} catch (error) {
 				console.log(error);
 			}
